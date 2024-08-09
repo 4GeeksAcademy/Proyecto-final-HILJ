@@ -1,0 +1,123 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+
+.custom-button{
+    background-color: #D9D9D9; /* Color de fondo personalizado */
+    color: rgb(7, 7, 7); /* Color del texto */
+    font-size: larger;
+    border: none; /* Elimina el borde */
+    font-family: "Montserrat" sans-serif;
+    width: 125px; /* Ancho del botón */
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+}
+
+.modal-title{
+    font-family: "Monserrat" sans-serif;
+    font-size: medium;
+}
+
+.form-label{
+    font-family: "Monserrat" sans-serif;
+    font-size: large;
+}
+
+.form-range {
+    -webkit-appearance: none; /* Eliminar el estilo predeterminado de los navegadores en Webkit */
+    appearance: none; /* Eliminar el estilo predeterminado de los navegadores */
+    width: 100%; /* Asegura que ocupe el 100% del contenedor */
+    height: 8px; /* Altura de la línea */
+    background-color: #303036; /* Color de fondo de la línea */
+    border-radius: 5px; /* Bordes redondeados */
+    outline: none; /* Eliminar el contorno */
+    opacity: 0.7; /* Transparencia para un efecto más suave */
+    transition: opacity 0.2s; /* Transición para el hover */
+}
+
+.form-range:hover {
+    opacity: 1; /* Opacidad completa al pasar el mouse */
+}
+
+/* Estilo para el "punto" del control deslizante */
+.form-range::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Eliminar el estilo predeterminado en navegadores Webkit */
+    appearance: none; /* Eliminar el estilo predeterminado */
+    width: 20px; /* Ancho del "punto" */
+    height: 20px; /* Alto del "punto" */
+    background-color: #000000; /* Color negro para el "punto" */
+    border-radius: 50%; /* Hace que el "punto" sea redondo */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el "punto" */
+}
+
+.form-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #000000;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Estilo para la línea en Firefox */
+.form-range::-moz-range-track {
+    background-color: #303036;
+    height: 8px;
+    border-radius: 5px;
+}
+
+.form-range::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #000000;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Estilo para la línea en Internet Explorer */
+.form-range::-ms-track {
+    background-color: #303036;
+    height: 8px;
+    border-radius: 5px;
+    border-color: transparent;
+    color: transparent;
+}
+
+/* Estilos para los cuadros dentro de "Tipos de Ruta" y "Actividades" */
+.card {
+    background-color: white; /* Fondo blanco */
+    color: black; /* Texto en negro */
+    border: 2px solid #000000; /* Borde negro */
+  }
+  
+  .card .card-title {
+    color: black; /* Asegura que el título de la tarjeta sea negro */
+  }
+  
+  .btn-clear-filter {
+    background-color: #257895; /* Color de fondo personalizado */
+    color: white; /* Color del texto */
+    font-family: "Montserrat" sans-serif;
+    border: none; /* Elimina el borde predeterminado */
+    border-radius: 15px; /* Radio redondeado */
+    padding: 10px 20px; /* Espaciado interno */
+    height: 20%; 
+  }
+
+  .btn-clear-filter:hover {
+    background-color: #1e5a6a; /* Color de fondo al pasar el mouse */
+  }
+  
+  /* Botón "Filtrar" */
+  .btn-apply-filter {
+    background-color: #408642; /* Color de fondo personalizado */
+    color: white; /* Color del texto */
+    border: none; /* Elimina el borde predeterminado */
+    border-radius: 15px; /* Radio redondeado */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: "Montserrat" sans-serif;
+  }
+  
+  .btn-apply-filter:hover {
+    background-color: #306030; /* Color de fondo al pasar el mouse */
+  }
+
