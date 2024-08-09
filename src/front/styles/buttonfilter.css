@@ -1,15 +1,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+* {
+  font-family: "Montserrat", sans-serif;
+}
 
 .custom-button{
     background-color: #D9D9D9; /* Color de fondo personalizado */
     color: rgb(7, 7, 7); /* Color del texto */
-    font-size: larger;
+    font-size: small;
     border: none; /* Elimina el borde */
     font-family: "Montserrat" sans-serif;
     width: 125px; /* Ancho del botón */
-    font-family: "Montserrat", sans-serif;
+    height: 35px;
     font-weight: bold;
 }
 
@@ -33,6 +36,7 @@
     outline: none; /* Eliminar el contorno */
     opacity: 0.7; /* Transparencia para un efecto más suave */
     transition: opacity 0.2s; /* Transición para el hover */
+    font-family: "Montserrat" sans-serif;
 }
 
 .form-range:hover {
@@ -80,6 +84,7 @@
     border-radius: 5px;
     border-color: transparent;
     color: transparent;
+    font-family: ;
 }
 
 /* Estilos para los cuadros dentro de "Tipos de Ruta" y "Actividades" */
@@ -91,13 +96,14 @@
   
   .card .card-title {
     color: black; /* Asegura que el título de la tarjeta sea negro */
+   
   }
   
   .btn-clear-filter {
     background-color: #257895; /* Color de fondo personalizado */
     color: white; /* Color del texto */
-    font-family: "Montserrat" sans-serif;
     border: none; /* Elimina el borde predeterminado */
+    font-size: small;
     border-radius: 15px; /* Radio redondeado */
     padding: 10px 20px; /* Espaciado interno */
     height: 20%; 
@@ -112,9 +118,10 @@
     background-color: #408642; /* Color de fondo personalizado */
     color: white; /* Color del texto */
     border: none; /* Elimina el borde predeterminado */
-    border-radius: 15px; /* Radio redondeado */
     padding: 10px 20px; /* Espaciado interno */
-    font-family: "Montserrat" sans-serif;
+    font-size: small;
+    height: 40px;
+    width: 100px;
   }
   
   .btn-apply-filter:hover {
