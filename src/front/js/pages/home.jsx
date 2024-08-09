@@ -21,10 +21,7 @@ export const Home = () => {
 				<a href="https://start.4geeksacademy.com/starters/react-flask">
 					Read documentation
 				</a>
-			</p>
-			<FilterButton/>
-
-			
+			</p>	
 		</div>
 	);
 };
