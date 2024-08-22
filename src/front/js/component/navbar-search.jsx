@@ -4,6 +4,7 @@ import "../../styles/navbar.css";
 import Searchbar from "./searchbar.jsx";
 import BlueButton from "./buttons/blueButton.jsx";
 import { Context } from "../store/appContext.js";
+import { FollowersModal } from "../component/followersModal.jsx"
 
 export const Navbarsearch = () => {
   const { store, actions } = useContext(Context);
@@ -38,6 +39,16 @@ export const Navbarsearch = () => {
             />
           )}
         </div>
+
+        <button
+            className="custom-button rounded-pill py-2 px-3"
+            data-bs-toggle="modal"
+            data-bs-target="#followersModal"
+          >
+            <i className="bi bi-person-circle"></i> Prueba Modal
+          </button>
+          <FollowersModal />
+
       </div>
     </nav>
   );
