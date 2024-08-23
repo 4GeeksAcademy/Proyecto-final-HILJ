@@ -4,9 +4,11 @@ import "../../styles/navbar.css";
 import Searchbar from "./searchbar.jsx";
 import BlueButton from "./buttons/blueButton.jsx";
 import { Context } from "../store/appContext.js";
-import { FollowersModal } from "../component/followersModal.jsx"
+import { FollowersFollowingModal } from "../component/followersFollowingModal.jsx"
+
 
 export const Navbarsearch = () => {
+
   const { store, actions } = useContext(Context);
   const navigate = useNavigate()
   const getToken = store.token || store.login == true
@@ -43,13 +45,35 @@ export const Navbarsearch = () => {
         <button
             className="custom-button rounded-pill py-2 px-3"
             data-bs-toggle="modal"
-            data-bs-target="#followersModal"
+            data-bs-target="#followersFollowingModal"
           >
             <i className="bi bi-person-circle"></i> Prueba Modal
           </button>
-          <FollowersModal />
+          <FollowersFollowingModal
+            show={showModal}
+            handleClose={() => setShowModal(false)}
+          />
 
       </div>
     </nav>
   );
 };
+
+function App() {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+      <div className="App">
+          <Button variant="primary" onClick={() => setShowModal(true)}>
+              Mostrar Modal de Seguidores/Siguiendo
+          </Button>
+
+          <FollowersFollowingModal
+              show={showModal}
+              handleClose={() => setShowModal(false)}
+          />
+      </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
