@@ -4,7 +4,7 @@ import { DATA_LIST } from "./data/data.js";
 import BlueButton from "./buttons/blueButton.jsx";
 import { Context } from "../store/appContext.js";
 import ActivityModal from "./activityModal.jsx";
-import "../../styles/addDay.css"
+import "../../styles/addDay.css";
 
 export const AddDay = () => {
   const { store, actions } = useContext(Context);
@@ -27,7 +27,7 @@ export const AddDay = () => {
           <i className="bi bi-plus"></i> Añadir día
         </button>
       </div>
-    <hr className="mt-0" />
+      <hr className="mt-0" />
       <div className="d-flex flex-column align-items-center">
         {itineraryDataKeys?.map((key, index) => (
           <div className="mx-auto w-100" key={index}>
