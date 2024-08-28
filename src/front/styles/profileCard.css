@@ -2,69 +2,20 @@
 
 * {
   font-family: "Montserrat", sans-serif;
-  box-sizing: border-box; 
 }
-
-.profile-container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: flex-start; 
-    padding: 20px; 
-    
-}
-
-.user-routes-container,
-.profile-card-container {
-    flex: 1;
-    margin: 0 15px; 
-    margin-right: 80px;
-}
-
-.description-box-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column; 
-    gap: 30px; 
-    padding: 20px;
-    padding-right: 50px;
-}
-
-.description-form-container,
-.comment-box-container,
-.social-box-container,
-.rating-box-container {
-    width: 490px; 
-    height: 200px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    padding: 20px; 
-    background-color: #d9d9d9;
-    border-radius: 10px; 
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; 
-    margin: 10px auto; 
-}
-
-
-.description-form p {
-    text-align: justify; /* Justifica el texto dentro del párrafo */
-    margin: 0; /* Elimina el margen por defecto */
-    width: 100%; /* Asegura que el párrafo use todo el ancho disponible */
-    max-width: 900px; /* Ajusta el ancho máximo del párrafo */
-  }
 
 .profile-card {
     width: 500px;
     height: 740px;
     background-color: #d9d9d9;
+    justify-content: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-    margin: 2rem auto 0; /* Margen superior y centralización */
+    margin: 0 auto;
+    margin-top: 2rem;
 }
-
 .profile-img {
     border-radius: 50%;
     width: 300px;
@@ -74,14 +25,9 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.username {
-    font-size: xx-large;
+.username{
+    font-size:xx-large;
 }
-
-.settings {
+.settings{
     cursor: pointer;
 }
-
-
-
-
