@@ -7,16 +7,16 @@ import UploadFile from "../component/uploadFile.jsx";
 import Accordion from "../component/accordion.jsx";
 import { AddDay } from "../component/addDay.jsx";
 import ActivityModal from "../component/activityModal.jsx";
-import "../../styles/createRoute.css"
+import "../../styles/createRoute.css";
 
 export const CreateRoute = (props) => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleDiscard = () => {
-    navigate('/user')
+    navigate("/user");
     window.location.reload();
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,31 +26,30 @@ export const CreateRoute = (props) => {
       store.newItineraryData.city &&
       Object.keys(store.newItineraryData.itinerary).length > 0 &&
       store.newItineraryData.images.img.length > 0
-    ){
+    ) {
       try {
-        const resp = await fetch(process.env.BACKEND_URL + '/api/itineraries',{
-          method: 'POST',
+        const resp = await fetch(process.env.BACKEND_URL + "/api/itineraries", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            accept: 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+            "Content-Type": "application/json",
+            accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(store.newItineraryData)
+          body: JSON.stringify(store.newItineraryData),
         });
         const data = await resp.json();
-        
+
         if (!resp.ok) {
-          const errorMsg = data.msg
+          const errorMsg = data.msg;
           throw new Error(errorMsg);
         }
-        navigate('/user')
-        return { success: true, data: data }, 200
+        navigate("/user");
+        return { success: true, data: data }, 200;
       } catch (error) {
-        console.error('Error creating itinerary:', error.message);
-             return { success: false, msg: error.message };
+        console.error("Error creating itinerary:", error.message);
+        return { success: false, msg: error.message };
       }
-    };
-
+    }
   };
   return (
     <>
