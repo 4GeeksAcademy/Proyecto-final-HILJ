@@ -1,11 +1,9 @@
 .accordion {
-    
-    border: 1px solid #43434a;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    margin-bottom: 15px;
+    border-radius: 16px;
     overflow: hidden;
     transition: all 0.3s ease;
-    max-width: 90%;
+    max-width: 100%;
   }
   
   .accordion:hover {
@@ -14,14 +12,13 @@
   
   .accordion.active {
     transform: scale(1.03);
-    border: 1px solid #303036;
+    
   }
-  
   .accordion-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fffaff;
+    background-color: #d7d7d71a;
     padding: 15px 20px;
     cursor: pointer;
   }
@@ -38,7 +35,7 @@
     align-items: center;
     justify-content: center;
     color: #303036;
-    background: #fffaff;
+    background: transparent;
     border-radius: 50%;
     user-select: none;
     transition: all 0.3s ease;
@@ -54,6 +51,6 @@
     line-height: 26px;
     padding: 20px;
     color: #43434a;
-    background-color: #fffaff;
-    border-top: 1px solid #43434a;
+    background-color: #d7d7d71a;
+    
   }

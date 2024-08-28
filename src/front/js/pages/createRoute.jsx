@@ -7,6 +7,7 @@ import UploadFile from "../component/uploadFile.jsx";
 import Accordion from "../component/accordion.jsx";
 import { AddDay } from "../component/addDay.jsx";
 import ActivityModal from "../component/activityModal.jsx";
+import "../../styles/createRoute.css"
 
 export const CreateRoute = (props) => {
   const { store, actions } = useContext(Context);
@@ -47,13 +48,19 @@ export const CreateRoute = (props) => {
   return (
     <>
       <form className="" onSubmit={handleSubmit}>
-        <div className="row w-100 justify-content-center">
+        <div className="row w-100 justify-content-center ">
             <UploadFile />
+            <div className="col-5 my-5 mx-5">
+            {/* <div className="float-end"> */}
             <AddDay />
+            <div className="d-flex gap-3 w-75 mb-5 mx-auto">
+            <button className="btn btn-secondary rounded-pill flex-grow-1">Descartar</button>
+            <button className="btn btn-primary rounded-pill flex-grow-1">Publicar</button>
+          </div>
+            {/* </div> */}
+            </div>
         </div>
-        <div className="text-center">
-            <button type="submit" className="btn btn-success">Publicar</button>
-        </div>
+       
       </form>
     </>
   );

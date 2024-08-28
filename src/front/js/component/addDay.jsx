@@ -4,6 +4,7 @@ import { DATA_LIST } from "./data/data.js";
 import BlueButton from "./buttons/blueButton.jsx";
 import { Context } from "../store/appContext.js";
 import ActivityModal from "./activityModal.jsx";
+import "../../styles/addDay.css"
 
 export const AddDay = () => {
   const { store, actions } = useContext(Context);
@@ -14,7 +15,14 @@ export const AddDay = () => {
   };
 
   return (
-    <div className="col-5 my-5 mx-5">
+    <>
+                <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="h4 mb-0">Itinerario:</h2>
+            <button className="btn btn-outline-primary rounded-pill" data-bs-toggle='modal' data-bs-target="#createDay">
+              <i className="bi bi-plus"></i> Añadir día
+            </button>
+          </div>
+          
       <div className="d-flex flex-column align-items-center">
         {itineraryDataKeys?.map((key, index) => (
           <div className="mx-auto w-100" key={index}>
@@ -35,7 +43,7 @@ export const AddDay = () => {
             </AccordionContainer>
           </div>
         ))}
-        <BlueButton
+        {/* <BlueButton
           buttonName={"Añadir día"}
           // icon={<i
           //     className=" me-2 fa-solid fa-plus fa-lg"
@@ -45,9 +53,9 @@ export const AddDay = () => {
           toggle={"modal"}
           target={"#createDay"}
           type={'button'}
-        />
+        /> */}
       </div>
       <ActivityModal />
-    </div>
+      </>
   );
 };
