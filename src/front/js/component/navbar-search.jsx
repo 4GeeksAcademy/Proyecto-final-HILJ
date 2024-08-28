@@ -49,31 +49,10 @@ export const Navbarsearch = () => {
           >
             <i className="bi bi-person-circle"></i> Prueba Modal
           </button>
-          <FollowersFollowingModal
-            show={showModal}
-            handleClose={() => setShowModal(false)}
-          />
+          <FollowersFollowingModal/>
 
       </div>
     </nav>
   );
 };
 
-function App() {
-  const [showModal, setShowModal] = useState(false);
-
-  return (
-      <div className="App">
-          <Button variant="primary" onClick={() => setShowModal(true)}>
-              Mostrar Modal de Seguidores/Siguiendo
-          </Button>
-
-          <FollowersFollowingModal
-              show={showModal}
-              handleClose={() => setShowModal(false)}
-          />
-      </div>
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));

@@ -1,74 +1,66 @@
 import React, { useState } from 'react';
-import ProfileCard from '../component/profileCard.jsx'
 
-export const FollowersFollowingModal = ({ show, handleClose }) => {
-    const [activeTab, setActiveTab] = useState('followers'); // Estado para manejar la pestaña activa
 
-    // Datos de ejemplo para seguidores y seguidos
-    const followers = [
-        { name: 'Juan Pérez', username: 'juanperez', imageUrl: 'https://via.placeholder.com/50' },
-        { name: 'María García', username: 'mariagarcia', imageUrl: 'https://via.placeholder.com/50' },
-    ];
-
-    const following = [
-        { name: 'Carlos López', username: 'carloslopez', imageUrl: 'https://via.placeholder.com/50' },
-        { name: 'Ana Martínez', username: 'anamartinez', imageUrl: 'https://via.placeholder.com/50' },
-    ];
-
+export const FollowersFollowingModal = () => {
+    
     return (
-        <Modal id="followersFollowingModal" show={show} onHide={handleClose} centered>
-            <Modal.Header closeButton>
-                <Nav variant="pills">
-                    <Nav.Item>
-                        <Nav.Link
-                            active={activeTab === 'followers'}
-                            onClick={() => setActiveTab('followers')}
-                        >
-                            Seguidores
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link
-                            active={activeTab === 'following'}
-                            onClick={() => setActiveTab('following')}
-                        >
-                            Siguiendo
-                        </Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </Modal.Header>
-            <Modal.Body>
-                {activeTab === 'followers' && (
-                    <>
-                        {followers.map((follower, index) => (
-                            <ProfileCard
-                                key={index}
-                                name={follower.name}
-                                username={follower.username}
-                                imageUrl={follower.imageUrl}
-                            />
-                        ))}
-                    </>
-                )}
-                {activeTab === 'following' && (
-                    <>
-                        {following.map((follow, index) => (
-                            <ProfileCard
-                                key={index}
-                                name={follow.name}
-                                username={follow.username}
-                                imageUrl={follow.imageUrl}
-                            />
-                        ))}
-                    </>
-                )}
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                </Button>
-            </Modal.Footer>
-        </Modal>
+        <div className="modal" id="followersFollowingModal" tabindex="-1">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">ShareTrips</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <ul className="nav nav-tabs">
+                <li className="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Seguidores</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="#">Seguidos</a>
+                </li>
+            </ul>
+            <div className="modal-body">
+                
+                <div className="card">
+                    <div className="row">
+                        <div className="col-4">
+                            <img className="img-fluid" src="https://cdn.pixabay.com/photo/2024/08/22/22/03/backpacker-8990243_1280.png" alt="..." />
+                        </div>
+                        <div className="col-8">
+                            <div className="card-body">
+                                <h1 className="h5 card-title">Pepe Perez</h1>
+                                <h2 className="h6 card-subtitle text-muted mb-2">@peperez</h2>
+                                <p className="card-text">Resumen del perfil.</p>
+                                <a href="#" className="card-link">more +</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div className="card">
+                    <div className="row">
+                        <div className="col-4">
+                            <img className="img-fluid" src="https://cdn.pixabay.com/photo/2024/08/22/22/03/backpacker-8990243_1280.png" alt="..." />
+                        </div>
+                        <div className="col-8">
+                            <div className="card-body">
+                                <h1 className="h5 card-title">Pepe Perez</h1>
+                                <h2 className="h6 card-subtitle text-muted mb-2">@peperez</h2>
+                                <p className="card-text">Resumen del perfil.</p>
+                                <a href="#" className="card-link">more +</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     );
 };
 
