@@ -4,9 +4,26 @@
     border-color: #257895;
   }
   
-  .btn-primary:hover {
-    background-color: #1c5a6e;
-    border-color: #1c5a6e;
+  .btn-primary.publish:hover {
+    background-color: #1c5a6e !important;
+    border-color: #1c5a6e !important;
+  }
+
+  .btn-primary.publish:active {
+    background-color: #164150 !important;
+    border-color: #164150 !important;
+  }
+
+  .btn-secondary.discard{
+    background-color: rgb(209, 209, 209);
+    border-color: rgb(209, 209, 209);
+    color: rgb(31, 41, 55)
+  }
+
+  .btn-secondary.discard:hover{
+    background-color: rgb(160, 160, 160);
+    border-color: rgb(160, 160, 160);
+    color: rgb(31, 41, 55)
   }
   
   .btn-outline-primary {

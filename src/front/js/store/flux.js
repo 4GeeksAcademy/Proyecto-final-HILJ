@@ -16,7 +16,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			itineraries: {},
 			token: '',
-			login: false,
 			newItineraryData: {
 				title: '',
 				description: '',
@@ -208,7 +207,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false
 					}
 				} catch (error) {
-					console.error('Error validating token', error)
+					console.log('Regístrate! :)')
 				}
 			}
 		}

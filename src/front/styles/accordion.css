@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #d7d7d71a;
+    background-color: #d7d7d765;
     padding: 15px 20px;
     cursor: pointer;
   }
@@ -51,6 +51,6 @@
     line-height: 26px;
     padding: 20px;
     color: #43434a;
-    background-color: #d7d7d71a;
+    background-color: #d7d7d765;
     
   }

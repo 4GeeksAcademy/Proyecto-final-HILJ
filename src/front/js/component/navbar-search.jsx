@@ -9,7 +9,6 @@ import DropdownButton from "./buttons/dropdownButton.jsx";
 export const Navbarsearch = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate()
-  const getToken = store.token || store.login == true
 
   return (
     <nav className="navbar navbar-light bg-light navbar-shadow py-4">
@@ -24,7 +23,7 @@ export const Navbarsearch = () => {
           <Searchbar />
         </div>
         <div className="ml-auto d-flex align-items-center">
-          {localStorage.getItem('token') ? (
+          {localStorage.getItem('token') || store.token ? (
             <BlueButton
               icon={<i className="bi bi-person-circle"></i>}
               buttonName={"Mi perfil"}

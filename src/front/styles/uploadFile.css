@@ -11,6 +11,23 @@
     border: none; 
   }
 
+  .file-upload-label {
+    cursor: pointer;
+  }
+  
+  .file-upload-area {
+    border: 2px dashed #ced4da;
+    border-radius: 50px;
+    padding: 2rem;
+    text-align: center;
+    background-color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .file-upload-area:hover {
+    background-color: #f8f9fa;
+  }
+
   .upload-file {
     max-width: 90%;
   }
@@ -19,4 +36,8 @@
     border-radius: 20px !important;
     height: 450px;
     width: 750px;
+  }
+
+  #uploadedFile {
+    width: 750px
   }

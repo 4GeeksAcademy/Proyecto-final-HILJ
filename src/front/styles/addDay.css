@@ -3,9 +3,9 @@
     border-color: #257895;
   }
   
-  .btn-primary:hover {
-    background-color: #1c5a6e;
-    border-color: #1c5a6e;
+  .btn-primary.publish:hover {
+    background-color: #1c5a6e !important;
+    border-color: #1c5a6e !important;
   }
   
   .btn-outline-primary {
@@ -15,6 +15,10 @@
   
   .btn-outline-primary:hover {
     background-color: #257895;
+    color: white;
+  }
+  .btn-outline-primary:active {
+    background-color: #1e5a70 !important;
     color: white;
   }
   

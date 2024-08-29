@@ -16,13 +16,18 @@ export const AddDay = () => {
 
   return (
     <>
-                <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2 className="h4 mb-0">Itinerario:</h2>
-            <button className="btn btn-outline-primary rounded-pill" data-bs-toggle='modal' data-bs-target="#createDay">
-              <i className="bi bi-plus"></i> Añadir día
-            </button>
-          </div>
-          
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="h4 mb-0">Itinerario:</h2>
+        <button
+          className="btn btn-outline-primary rounded-pill"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#createDay"
+        >
+          <i className="bi bi-plus"></i> Añadir día
+        </button>
+      </div>
+    <hr className="mt-0" />
       <div className="d-flex flex-column align-items-center">
         {itineraryDataKeys?.map((key, index) => (
           <div className="mx-auto w-100" key={index}>
@@ -30,7 +35,11 @@ export const AddDay = () => {
               id={index}
               title={key}
               del={
-                <i key={key} onClick={() => deleteDay(key)} className="bi bi-trash3"></i>
+                <i
+                  key={key}
+                  onClick={() => deleteDay(key)}
+                  className="bi bi-trash3"
+                ></i>
               }
             >
               <ul>
@@ -56,6 +65,6 @@ export const AddDay = () => {
         /> */}
       </div>
       <ActivityModal />
-      </>
+    </>
   );
 };

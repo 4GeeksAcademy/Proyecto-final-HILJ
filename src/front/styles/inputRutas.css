@@ -1,15 +1,13 @@
-/* inputRutas.css */
 .custom-dropdown-input {
-    border-radius: 0.25rem; /* Mismo radio de borde que los inputs normales */
-    border: 1px solid #ced4da; /* Mismo estilo de borde que los inputs normales */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el input */
+    border-radius: 0.25rem; 
+    border: 1px solid #ced4da; 
+    cursor: pointer; 
 }
 
 .dropdown-menu {
-    width: 100%; /* Hace que el dropdown ocupe todo el ancho del input */
+    width: 100%;
 }
 
-/* Estilos para los tags en forma de pills */
 .tag-item {
     display: inline-flex;
     align-items: center;
@@ -17,17 +15,17 @@
     margin: 0.2rem;
     font-size: 0.9rem;
     color: white;
-    background-color: #267192; /* Color de fondo para el tag */
-    border-radius: 9999px; /* Redondeo máximo para crear un efecto de pill */
+    background-color: #267192; 
+    border-radius: 9999px; 
 }
 
 .tag-item .fa-x {
-    cursor: pointer; /* Cambio de cursor para indicar interactividad */
-    margin-left: 0.3rem; /* Espacio entre el texto del tag y la 'x' de cierre */
+    cursor: pointer; 
+    margin-left: 0.3rem;
 }
 
 .tag-item .fa-x:hover {
-    color: #f0f0f0; /* Cambia el color al pasar el ratón para un mejor feedback visual */
+    color: #f0f0f0;
 }
 
 /* Estilo para el input del datalist */

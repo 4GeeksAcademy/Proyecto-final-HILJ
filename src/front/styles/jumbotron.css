@@ -4,14 +4,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-/* .jumbotron {
-  background-image: url("https://images.unsplash.com/photo-1468183654773-77e2f0bb6bf9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-  position: relative
-} */
-
 .carousel.jumbo-slider{
   width: 100% !important;
   z-index: 1;
