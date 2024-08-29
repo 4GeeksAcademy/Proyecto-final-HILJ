@@ -1,5 +1,6 @@
 import React from "react";
 import LogoutLink from "../logout.js";
+import { Link } from "react-router-dom";
 
 const DropdownButton = ({ buttonName, icon }) => {
   return (
@@ -14,9 +15,14 @@ const DropdownButton = ({ buttonName, icon }) => {
       </button>
       <ul className="dropdown-menu dropdown-menu-light">
         <li>
-          <a className="dropdown-item" href="#">
+          <Link to={'/user'}>
             Mi perfil
-          </a>
+          </Link>
+        </li>
+        <li>
+          <Link to={'/route/create'}>
+            Crear itinerario
+          </Link>
         </li>
         <li>
           <hr className="dropdown-divider" />

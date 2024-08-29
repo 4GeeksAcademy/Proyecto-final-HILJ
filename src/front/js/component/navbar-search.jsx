@@ -23,11 +23,10 @@ export const Navbarsearch = () => {
           <Searchbar />
         </div>
         <div className="ml-auto d-flex align-items-center">
-          {localStorage.getItem('token') || store.token ? (
-            <BlueButton
+          {localStorage.getItem("token") || store.token ? (
+            <DropdownButton
               icon={<i className="bi bi-person-circle"></i>}
               buttonName={"Mi perfil"}
-              onclick={() => navigate("/search")}
             />
           ) : (
             <BlueButton
