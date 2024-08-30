@@ -2,6 +2,11 @@ import React from "react";
 import { USER_DATA } from "./data/userData.js";
 import FollowButton from "./buttons/followButton.jsx";
 import "../../styles/profileCard.css";
+import DescriptionForm from "../component/DescriptionForm.jsx";
+import CommentBox from "../component/CommentBox.jsx";
+import SocialLinks from "../component/SocialLinks.js";
+import Rating from "../component/Rating.js";
+
 
 const ProfileCard = () => {
   return (
@@ -29,6 +34,14 @@ const ProfileCard = () => {
             <FollowButton />
           </span>
         </div>
+      </div>
+
+      {/* Contenedor para los BoxScores */}
+      <div className="box-scores-container">
+        <DescriptionForm />
+        <CommentBox />
+        <SocialLinks />
+        <Rating />
       </div>
     </>
   );

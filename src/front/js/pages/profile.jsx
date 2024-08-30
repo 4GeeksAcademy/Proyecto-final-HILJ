@@ -5,6 +5,7 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import UserRoutes from "../component/userRoutes.jsx";
 import ProfileCard from "../component/profileCard.jsx";
+import BoxScore from "../component/boxScore.jsx";
 
 
 export const Profile = (props) => {
@@ -15,7 +16,6 @@ export const Profile = (props) => {
     <div>
       <UserRoutes/>
       <ProfileCard/>
-     
     </div>
   );
 };
