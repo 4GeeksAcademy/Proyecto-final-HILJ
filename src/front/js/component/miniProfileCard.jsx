@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ProfileCard = ({ name, username, imageUrl }) => {
+export const MiniProfileCard = ({ name, username, imageUrl }) => {
     return (
         <div className="card" style={{ width: '100%', marginBottom: '10px'}}>
                     <div className="card-body d-flex align-items-center">
@@ -16,4 +16,4 @@ export const ProfileCard = ({ name, username, imageUrl }) => {
     );
 };
 
-export default ProfileCard;
+export default MiniProfileCard;

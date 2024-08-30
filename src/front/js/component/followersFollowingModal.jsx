@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProfileCard from "../component/profileCard.jsx";
+import MiniProfileCard from "../component/miniProfileCard.jsx";
 
 
 export const FollowersFollowingModal = () => {
@@ -24,19 +24,19 @@ export const FollowersFollowingModal = () => {
               <h5 className="modal-title">ShareTrips</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <ul className="nav nav-tabs justify-content-center">
+            <ul className="nav nav-tabs justify-content-center mt-2">
                 <li className="nav-item">
-                    <a class="nav-link" active={activeTab === 'followers'} onClick={() => setActiveTab('followers')} aria-current="page" href="#">Seguidores</a>
+                    <a className="nav-link active={activeTab === 'followers'}" onClick={() => setActiveTab('followers')} aria-current="page" href="#">Seguidores</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" active={activeTab === 'following'} onClick={() => setActiveTab('following')} href="#">Seguiendo</a>
+                    <a className="nav-link" onClick={() => setActiveTab('following')} href="#">Siguiendo</a>
                 </li>
             </ul>
             <div className="modal-body">
                 
                 {activeTab === 'followers' && (
                         followers.map((follower, index) => (
-                            <ProfileCard
+                            <MiniProfileCard
                                 key={index}
                                 name={follower.name}
                                 username={follower.username}
@@ -46,7 +46,7 @@ export const FollowersFollowingModal = () => {
                     )}
                     {activeTab === 'following' && (
                         following.map((follow, index) => (
-                            <ProfileCard
+                            <MiniProfileCard
                                 key={index}
                                 name={follow.name}
                                 username={follow.username}
@@ -56,9 +56,6 @@ export const FollowersFollowingModal = () => {
                     )}
 
 
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
