@@ -14,7 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			itineraries: {},
+			itineraries: [],
 			token: '',
 			newItineraryData: {
 				title: '',

@@ -39,7 +39,7 @@ export const Search = () => {
               key={index}
             >
               <RouteCard
-                id={index}
+                id={itinerary.id}
                 title={itinerary.title}
                 img={itinerary.images.img[0]}
                 desc={itinerary.description}
