@@ -44,6 +44,7 @@ export const CreateRoute = (props) => {
           throw new Error(errorMsg);
         }
         navigate("/user");
+        window.location.reload();
         return { success: true, data: data }, 200;
       } catch (error) {
         console.error("Error creating itinerary:", error.message);
