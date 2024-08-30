@@ -5,6 +5,7 @@ import Searchbar from "./searchbar.jsx";
 import BlueButton from "./buttons/blueButton.jsx";
 import { Context } from "../store/appContext.js";
 import DropdownButton from "./buttons/dropdownButton.jsx";
+import RatingModal from "../component/ratingModal.jsx";
 
 export const Navbarsearch = () => {
   const { store, actions } = useContext(Context);
@@ -36,6 +37,14 @@ export const Navbarsearch = () => {
               target={"#loginModal"}
             />
           )}
+          <button
+            className="custom-button rounded-pill py-2 px-3"
+            data-bs-toggle="modal"
+            data-bs-target="#ratingModal"
+          >
+            <i className="bi bi-person-circle"></i> Prueba Modal
+          </button>
+          <RatingModal />
         </div>
       </div>
     </nav>
