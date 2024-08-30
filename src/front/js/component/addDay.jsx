@@ -8,7 +8,18 @@ import {
   DirectionsRenderer,
   Autocomplete,
 } from "@react-google-maps/api";
+import React, { useState, useCallback, useMemo, useContext } from "react";
+import { Context } from "../store/appContext.js";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  DirectionsService,
+  DirectionsRenderer,
+  Autocomplete,
+} from "@react-google-maps/api";
 import AccordionContainer from "./accordionContent.jsx";
+
 
 import "../../styles/addDay.css";
 import RedButton from "../component/buttons/redButton.jsx";
@@ -27,8 +38,31 @@ const center = {
 };
 
 const libraries = ["places"];
+import RedButton from "../component/buttons/redButton.jsx";
+
+const containerStyle = {
+  width: "100%",
+  height: "500px",
+  borderRadius: "20px",  
+  overflow: "hidden",    
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" 
+};
+
+const center = {
+  lat: 40.40984608562589,
+  lng: -3.7383326434978748,
+};
+
+const libraries = ["places"];
 
 export const AddDay = () => {
+
+  const { store, actions } = useContext(Context)
+  const [map, setMap] = useState(null);
+  const [autocomplete, setAutocomplete] = useState(null);
+  const [points, setPoints] = useState([]);
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   const { store, actions } = useContext(Context)
   const [map, setMap] = useState(null);
@@ -104,6 +138,72 @@ export const AddDay = () => {
   const deleteDay = (key) => {
  
     actions.deleteDay(key)
+  const directionsServiceOptions = useMemo(
+    () => ({
+      origin: points[0],
+      destination: points[points.length - 1],
+      travelMode: "WALKING",
+      waypoints: points.slice(1, -1).map((point) => ({ location: point })),
+    }),
+    [points]
+  );
+
+  const handlePlaceSelect = useCallback(() => {
+    if (autocomplete !== null && autocomplete.getPlace) {
+      const place = autocomplete.getPlace();
+      if (place.geometry) {
+        const newPoint = {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+          address: place.name,
+        };
+        setPoints((prevPoints) => [...prevPoints, newPoint]);
+
+       
+        map.panTo(newPoint);
+      }
+    }
+    setInputValue("");
+  }, [autocomplete, map]);
+
+  const handleAutocompleteLoad = useCallback((autocompleteInstance) => {
+    setAutocomplete(autocompleteInstance);
+  }, []);
+
+  const handleDirectionsCallback = useCallback((response) => {
+    if (response !== null && response.status === "OK") {
+      setDirectionsResponse(response);
+    } else {
+      console.error("Error fetching directions:", response);
+    }
+  }, []);
+
+  const handleRemoveLastPoint = useCallback(() => {
+    setPoints((prevPoints) => {
+      const updatedPoints = prevPoints.slice(0, -1);
+      if (updatedPoints.length < 2) {
+        setDirectionsResponse(null);
+      }
+      return updatedPoints;
+    });
+  }, []);
+
+  const handleAddDay = () => {
+    const dayNumber = Object.keys(store.newItineraryData.itinerary).length + 1;
+    if (points.length === 0) return; 
+
+    const newDay = points.map(point => point.address);
+
+    actions.addDay(dayNumber, points);
+
+    setPoints([]);
+    setDirectionsResponse(null);
+    console.log(points)
+  };
+
+  const deleteDay = (key) => {
+ 
+    actions.deleteDay(key)
   };
 
   return (
@@ -111,9 +211,12 @@ export const AddDay = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="h4 mb-0">Itinerario:</h2>
         
+        
       </div>
       <hr className="mt-0" />
       <div className="d-flex flex-column align-items-center">
+
+
 
 
         {itineraryDataKeys?.map((key, index) => (
@@ -133,12 +236,18 @@ export const AddDay = () => {
                 {store.newItineraryData.itinerary[key].map(
                   (location, index) => (
                     <li key={index}>{location.address}</li>
+                    <li key={index}>{location.address}</li>
                   )
                 )}
               </ul>
             </AccordionContainer>
           </div>
         ))}
+
+
+
+
+       
 
 
 
