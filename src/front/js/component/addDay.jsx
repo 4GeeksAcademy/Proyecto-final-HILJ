@@ -147,7 +147,7 @@ export const AddDay = () => {
       </div>
 
       <LoadScript
-        googleMapsApiKey="AIzaSyD2xZz7fZATEPYBmHAQ8BNTVNNwDiDAZcY"
+        googleMapsApiKey="APIKEY"
         libraries={libraries}
       >
         <GoogleMap
