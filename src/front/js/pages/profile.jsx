@@ -25,14 +25,10 @@ export const Profile = () => {
         <div className="comment-box-container">
           <CommentBox />
         </div>
-        <div className="social-box-container">
-          <SocialLinks />
-        </div>
         <div className="rating-box-container">
           <Rating />
         </div>
       </div>
-      
       <div className="profile-card-container">
         <ProfileCard />
       </div> 
