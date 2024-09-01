@@ -6,9 +6,9 @@ const DescriptionForm = ({ userId }) => {
   const [error, setError] = useState(null); 
 
   useEffect(() => {
-    const fetchDescription = async () => {
+    const fetchDescription = async (id) => {
       try {
-        const response = await fetch(process.env.BACKEND_URL + "/api/users");
+        const response = await fetch(process.env.BACKEND_URL + `/api/users/${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

@@ -38,6 +38,17 @@ def get_users():
     return jsonify({'msg': 'ok',
                     'users': users}), 200
 
+@api.route('/users/<int:id>', methods=['GET'])
+def get_user_by_id(id):
+    user = User.query.get(id)
+    
+    if user is None:
+        return jsonify({'msg': 'User not found'}), 404
+
+    return jsonify({'msg': 'ok',
+                    'user': user.serialize()}), 200
+
+
 @api.route('/itineraries', methods=['GET'])
 def get_itineraries():
     city = request.args.get('city')
