@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const DescriptionForm = () => {
-  const [description, setDescription] = useState(''); // Estado para almacenar la descripción
-  const [loading, setLoading] = useState(true); // Estado para controlar la carga
-  const [error, setError] = useState(null); // Estado para manejar errores
+const DescriptionForm = ({ userId }) => {
+  const [description, setDescription] = useState(''); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchDescription = async () => {
       try {
-        const url = 'https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/admin/user/'; // Reemplaza con tu endpoint
+        const url = `https://tu-dominio.com/admin/user/${userId}`;
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -25,16 +25,32 @@ const DescriptionForm = () => {
     };
 
     fetchDescription(); // Llamada a la función para obtener la descripción al montar el componente
-  }, []); // El array vacío significa que este efecto se ejecuta solo una vez al montar el componente
+  }, [userId]); // Se vuelve a ejecutar si el userId cambia
 
   const handleChange = (e) => {
     setDescription(e.target.value); // Actualiza el estado con el nuevo valor del textarea
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar los datos a la API si es necesario
-    console.log('Descripción guardada:', description);
+    try {
+      const url = `https://tu-dominio.com/admin/user/${userId}`;
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al actualizar la descripción');
+      }
+
+      console.log('Descripción guardada:', description);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   if (loading) {

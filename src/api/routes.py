@@ -235,3 +235,25 @@ def verify_password():
     
     return jsonify({'msg': 'Contraseña verificada'}), 200
 
+@app.route('/admin/user/<int:user_id>', methods=['GET', 'PUT'])
+def user_description(user_id):
+    user = User.query.get(user_id)
+    
+    if request.method == 'GET':
+        if user:
+            return jsonify({"description": user.description}), 200
+        else:
+            return jsonify({"error": "User not found"}), 404
+
+    if request.method == 'PUT':
+        data = request.json
+        if 'description' in data:
+            user.description = data['description']
+            db.session.commit()
+            return jsonify({"message": "Description updated successfully"}), 200
+        else:
+            return jsonify({"error": "Invalid input"}), 400
+
+if __name__ == "__main__":
+    app.run(debug=True)    
+

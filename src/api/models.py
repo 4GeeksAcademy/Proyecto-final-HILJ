@@ -225,4 +225,5 @@ class Contacts(db.Model):
             "title": self.title,
             "description": self.description,
         }
-    
+
+
