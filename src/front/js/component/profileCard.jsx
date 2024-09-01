@@ -6,7 +6,7 @@ import "../../styles/profileCard.css";
 const ProfileCard = () => {
   return (
     <>
-      <div className="profile-card mx-5 my-5">
+      <div className="profile-card">
         <i className="settings fs-3 fa-solid fa-gear d-flex justify-content-end me-5"></i>
         <img
           className="profile-img my-5 mx-auto"

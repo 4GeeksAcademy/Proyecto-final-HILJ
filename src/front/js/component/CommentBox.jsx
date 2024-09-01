@@ -1,52 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import ItineraryDetail from './ItineraryId.jsx';
 
-
-const CommentBox = () => {
-  const [comments, setComments] = useState([]); // Estado para almacenar los comentarios
-  const [loading, setLoading] = useState(true); // Estado para controlar la carga
-  const [error, setError] = useState(null); // Estado para manejar errores
-
-  const fetchComments = async () => {
-    try {
-      const url = 'https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/admin/comments/'; // Reemplaza con tu endpoint
-      const response = await fetch(url, { method: 'GET' });
-
-      // Verifica si la respuesta es correcta
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.msg || 'Error al obtener los comentarios');
-      }
-
-      const data = await response.json();
-      setComments(data); // Suponiendo que 'data' es un array de comentarios
-    } catch (err) {
-      setError(`Error: ${err.message}`); // Manejo del error
-      console.error('Error:', err); // Imprime el error en la consola para depuración
-    } finally {
-      setLoading(false); // Detenemos el estado de carga
-    }
-  };
+const CommentBox = ({ itineraryId }) => {
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchComments(); // Llamada a la función para obtener comentarios al montar el componente
-  }, []); // El array vacío significa que este efecto se ejecuta solo una vez al montar el componente
+    const fetchComments = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/admin/itineraries/${itineraryId}/comments`);
+        
+        if (!response.ok) {
+          throw new Error('Error al obtener los comentarios');
+        }
+        
+        const data = await response.json();
+        setComments(data.comments);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchComments();
+  }, [itineraryId]);
 
   if (loading) {
-    return <div className="box-score comment-box">Cargando comentarios...</div>;
+    return <div>Loading comments...</div>;
   }
 
   if (error) {
-    return <div className="box-score comment-box">Error: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
-    <div className="box-score comment-box">
-      <ul>
-        {comments.map((comment, index) => (
-          <li key={index}>{comment}</li>
-        ))}
-      </ul>
+    <div>
+      <h2>Comentarios</h2>
+      {comments.length > 0 ? (
+        <ul>
+          {comments.map(comment => (
+            <li key={comment.id}>
+              <p>{comment.text}</p>
+              <small>by User {comment.author_id} on {comment.creation_date}</small>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No comments yet.</p>
+      )}
     </div>
   );
 };

@@ -235,25 +235,54 @@ def verify_password():
     
     return jsonify({'msg': 'Contraseña verificada'}), 200
 
-@app.route('/admin/user/<int:user_id>', methods=['GET', 'PUT'])
-def user_description(user_id):
-    user = User.query.get(user_id)
+@api.route('/profile', methods=['GET'])
+@jwt_required()
+def get_profile():
+    # Obtener el ID del usuario a partir del token JWT
+    current_user_id = get_jwt_identity()
     
-    if request.method == 'GET':
-        if user:
-            return jsonify({"description": user.description}), 200
-        else:
-            return jsonify({"error": "User not found"}), 404
+    # Buscar el usuario en la base de datos
+    user = User.query.get(current_user_id)
+    
+    # Si el usuario no se encuentra, devolver un error 404
+    if not user:
+        return jsonify({'msg': 'Usuario no encontrado'}), 404
+    
+    # Serializar los datos del usuario
+    user_profile = user.serialize()
+    
+    # Devolver la información del perfil del usuario
+    return jsonify({'msg': 'Perfil obtenido con éxito', 'profile': user_profile}), 200
 
-    if request.method == 'PUT':
-        data = request.json
-        if 'description' in data:
-            user.description = data['description']
-            db.session.commit()
-            return jsonify({"message": "Description updated successfully"}), 200
-        else:
-            return jsonify({"error": "Invalid input"}), 400
+@api.route('/itineraries/<int:id>/comments', methods=['GET'])
+def get_itinerary_comments(id):
+    itinerary = Itinerary.query.get(id)
+    if not itinerary:
+        return jsonify({'msg': 'Itinerary not found'}), 404
 
-if __name__ == "__main__":
-    app.run(debug=True)    
+    comments = Comments.query.filter_by(itinerary_id=id).all()
+    comments = [comment.serialize() for comment in comments]
+
+    return jsonify({'msg': 'ok', 'comments': comments}), 200
+
+@api.route('/user/social-media', methods=['GET'])
+@jwt_required()
+def get_social_media():
+    # Obtener el ID del usuario a partir del token JWT
+    current_user_id = get_jwt_identity()
+    
+    # Buscar el usuario en la base de datos
+    user = User.query.get(current_user_id)
+    
+    # Si el usuario no se encuentra, devolver un error 404
+    if not user:
+        return jsonify({'msg': 'Usuario no encontrado'}), 404
+    
+    # Obtener las redes sociales del usuario
+    social_media = user.social_media
+    
+    # Devolver las redes sociales en formato JSON
+    return jsonify({'msg': 'Redes sociales obtenidas con éxito', 'social_media': social_media}), 200
+
+
 

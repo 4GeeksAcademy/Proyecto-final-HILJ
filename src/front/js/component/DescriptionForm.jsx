@@ -7,8 +7,10 @@ const DescriptionForm = ({ userId }) => {
 
   useEffect(() => {
     const fetchDescription = async () => {
+      setLoading(true); 
+
       try {
-        const url = `https://tu-dominio.com/admin/user/${userId}`;
+        const url = `https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/admin/user/${userId}`;
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -20,12 +22,14 @@ const DescriptionForm = ({ userId }) => {
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false); // Detenemos el estado de carga
+        setLoading(false); 
       }
     };
 
-    fetchDescription(); // Llamada a la función para obtener la descripción al montar el componente
-  }, [userId]); // Se vuelve a ejecutar si el userId cambia
+    if (userId) {
+      fetchDescription(); // 
+    }
+  }, [userId]); 
 
   const handleChange = (e) => {
     setDescription(e.target.value); // Actualiza el estado con el nuevo valor del textarea
@@ -34,7 +38,7 @@ const DescriptionForm = ({ userId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `https://tu-dominio.com/admin/user/${userId}`;
+      const url = `https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/admin/user/${userId}`;
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
@@ -54,7 +58,7 @@ const DescriptionForm = ({ userId }) => {
   };
 
   if (loading) {
-    return <div className="box-score description-form">Cargando...</div>;
+    return <div className="box-score description-form spinner-border"></div>;
   }
 
   if (error) {
