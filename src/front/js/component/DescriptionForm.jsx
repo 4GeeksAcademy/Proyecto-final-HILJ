@@ -7,6 +7,8 @@ const DescriptionForm = () => {
 
   useEffect(() => {
     const fetchDescription = async () => {
+      setLoading(true); 
+
       try {
         const token = localStorage.getItem('token'); // Obtener el token del localStorage
         

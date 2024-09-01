@@ -2,20 +2,59 @@
 
 * {
   font-family: "Montserrat", sans-serif;
+  box-sizing: border-box; /* Asegura que el padding y border se incluyan en el tamaño total de los elementos */
+}
+
+.profile-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    align-items: flex-start; /* Alinea los elementos en la parte superior */
+    padding: 20px; /* Añade padding alrededor del contenedor principal */
+    
+}
+
+.user-routes-container,
+.profile-card-container {
+    flex: 1;
+    margin: 0 15px; /* Ajusta el margen para que estén más juntos */
+    margin-right: 80px;
+}
+
+.description-box-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Coloca los boxes en una columna */
+    gap: 30px; /* Espacio entre los boxes */
+    padding: 20px;
+    padding-right: 50px;
+}
+
+.description-form-container,
+.comment-box-container,
+.social-box-container,
+.rating-box-container {
+    width: 490px; 
+    height: 200px; 
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .profile-card {
     width: 500px;
     height: 740px;
     background-color: #d9d9d9;
-    justify-content: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-    margin: 0 auto;
-    margin-top: 2rem;
+    margin: 2rem auto 0; /* Margen superior y centralización */
 }
+
 .profile-img {
     border-radius: 50%;
     width: 300px;
@@ -25,9 +64,14 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.username{
-    font-size:xx-large;
+.username {
+    font-size: xx-large;
 }
-.settings{
+
+.settings {
     cursor: pointer;
 }
+
+
+
+
