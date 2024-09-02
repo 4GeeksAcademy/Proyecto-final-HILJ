@@ -130,3 +130,32 @@ def protected():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     return jsonify(logged_in_as=user.username), 200
+
+
+#Ruta para modal de seguidores y seguidos
+@api.route('/followers', methods=['GET'])
+def get_followers():
+    user = User.query.get()
+    followers = user.followers.all()
+    result = []
+    for follower in followers:
+        result.append({
+            'id': follower.id,
+            'username': follower.username,
+            'profile_image': follower.profile_image
+        })
+    return jsonify(result)
+
+
+@api.route('/following', methods=['GET'])
+def get_following():
+    user = User.query.get()
+    following = user.followed.all()
+    result = []
+    for followed in following:
+        result.append({
+            'id': followed.id,
+            'username': followed.username,
+            'profile_image': followed.profile_image
+        })
+    return jsonify(result)
