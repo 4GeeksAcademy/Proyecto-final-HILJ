@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, Blueprint
-from api.models import db, User, Itinerary, Contacts
+from api.models import db, User, Itinerary, Contacts, Comments
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import bcrypt
 from flask_cors import CORS
@@ -249,51 +249,80 @@ def verify_password():
 @api.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
-    # Obtener el ID del usuario a partir del token JWT
+   
     current_user_id = get_jwt_identity()
     
-    # Buscar el usuario en la base de datos
+  
     user = User.query.get(current_user_id)
     
-    # Si el usuario no se encuentra, devolver un error 404
+ 
     if not user:
         return jsonify({'msg': 'Usuario no encontrado'}), 404
     
-    # Serializar los datos del usuario
+ 
     user_profile = user.serialize()
     
-    # Devolver la información del perfil del usuario
+
     return jsonify({'msg': 'Perfil obtenido con éxito', 'profile': user_profile}), 200
 
 @api.route('/itineraries/<int:id>/comments', methods=['GET'])
 def get_itinerary_comments(id):
-    itinerary = Itinerary.query.get(id)
-    if not itinerary:
-        return jsonify({'msg': 'Itinerary not found'}), 404
+    try:
+        itinerary = Itinerary.query.get(id)
+        if not itinerary:
+            return jsonify({'msg': 'Itinerary not found'}), 404
 
-    comments = Comments.query.filter_by(itinerary_id=id).all()
-    comments = [comment.serialize() for comment in comments]
+        comment = Comments.query.filter_by(itinerary_id=id).first() 
+        if comment:
+            return jsonify({'msg': 'ok', 'comment': comment.serialize()}), 200
+        else:
+            return jsonify({'msg': 'No comments found'}), 404
+    except Exception as e:
+        return jsonify({'msg': 'Error en el servidor', 'error': str(e)}), 500
 
-    return jsonify({'msg': 'ok', 'comments': comments}), 200
+
 
 @api.route('/user/social-media', methods=['GET'])
 @jwt_required()
 def get_social_media():
-    # Obtener el ID del usuario a partir del token JWT
     current_user_id = get_jwt_identity()
     
-    # Buscar el usuario en la base de datos
+   
     user = User.query.get(current_user_id)
     
-    # Si el usuario no se encuentra, devolver un error 404
+   
     if not user:
         return jsonify({'msg': 'Usuario no encontrado'}), 404
     
-    # Obtener las redes sociales del usuario
+   
     social_media = user.social_media
     
-    # Devolver las redes sociales en formato JSON
+   
     return jsonify({'msg': 'Redes sociales obtenidas con éxito', 'social_media': social_media}), 200
+
+
+@api.route('/my-itineraries/comments-count', methods=['GET'])
+@jwt_required()
+def get_comments_count_for_my_itineraries():
+    try:
+        current_user_id = get_jwt_identity()
+        
+        # Obtener todos los itinerarios creados por el usuario autenticado
+        itineraries = Itinerary.query.filter_by(author_id=current_user_id).all()
+        
+        if not itineraries:
+            return jsonify({'msg': 'No itineraries found for this user'}), 404
+        
+        # Obtener la cantidad total de comentarios en esos itinerarios
+        itinerary_ids = [itinerary.id for itinerary in itineraries]
+        comments_count = Comments.query.filter(Comments.itinerary_id.in_(itinerary_ids)).count()
+
+        return jsonify({'msg': 'ok', 'comments_count': comments_count}), 200
+    except Exception as e:
+        return jsonify({'msg': 'Server error', 'error': str(e)}), 500
+
+
+
 
 
 

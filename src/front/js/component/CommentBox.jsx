@@ -1,35 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import ItineraryDetail from './ItineraryId.jsx';
 
-const CommentBox = ({ itineraryId }) => {
-  const [comments, setComments] = useState([]);
+const CommentsCount = () => {
+  const [commentsCount, setCommentsCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchComments = async () => {
-      setLoading(true);
+    const fetchCommentsCount = async () => {
       try {
-        const response = await fetch(`https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/admin/itineraries/${itineraryId}/comments`);
+        // Usar el token de localStorage para la autenticación
+        const token = localStorage.getItem('token');
         
-        if (!response.ok) {
-          throw new Error('Error al obtener los comentarios');
+        // Asegurarse de que el token existe
+        if (!token) {
+          throw new Error('No token found');
         }
-        
+
+        const response = await fetch(`${process.env.BACKEND_URL}/api/my-itineraries/comments-count`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
-        setComments(data.comments);
-      } catch (err) {
-        setError(err.message);
+        setCommentsCount(data.comments_count);
+      } catch (error) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchComments();
-  }, [itineraryId]);
+    fetchCommentsCount();
+  }, []);
 
   if (loading) {
-    return <div>Loading comments...</div>;
+    return <div>Loading comments count...</div>;
   }
 
   if (error) {
@@ -38,21 +48,9 @@ const CommentBox = ({ itineraryId }) => {
 
   return (
     <div>
-      <h2>Comentarios</h2>
-      {comments.length > 0 ? (
-        <ul>
-          {comments.map(comment => (
-            <li key={comment.id}>
-              <p>{comment.text}</p>
-              <small>by User {comment.author_id} on {comment.creation_date}</small>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No comments yet.</p>
-      )}
+      <p>Total de comentarios en tus itinerarios: {commentsCount}</p>
     </div>
   );
 };
 
-export default CommentBox;
+export default CommentsCount;

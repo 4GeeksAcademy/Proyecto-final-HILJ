@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
 const SocialLinks = () => {
-  const [links, setLinks] = useState({});
-  const API_URL = 'https://refactored-broccoli-g4xv7wjwwrx43wg9q-3001.app.github.dev/api/user/social-media';
+  const [links, setLinks] = useState(null); // Cambiar el estado inicial a null
+  const [loading, setLoading] = useState(true); // Agregar estado de carga
+  const [error, setError] = useState(null); // Agregar estado de error
+  const API_URL = `${process.env.BACKEND_URL}/api/user/social-media`; // Asegúrate de que la URL sea correcta
 
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
-        // Suponiendo que el token JWT está almacenado en el localStorage
         const token = localStorage.getItem('token');
+        
+        if (!token) {
+          throw new Error('No token found');
+        }
 
         const response = await fetch(API_URL, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Se incluye el token JWT en el header
+            'Authorization': `Bearer ${token}`,
           },
         });
 
@@ -23,37 +28,50 @@ const SocialLinks = () => {
         }
 
         const data = await response.json();
-        setLinks(data.social_media); // Asume que el objeto devuelto tiene una propiedad "social_media" que contiene los links
-
+        setLinks(data.social_media);
       } catch (error) {
-        console.error('Error fetching social links:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false); // Asegurarse de que el estado de carga se actualice al finalizar
       }
     };
 
     fetchSocialLinks();
   }, []);
 
+  if (loading) {
+    return <div className="box-score social-links">Loading social links...</div>;
+  }
+
+  if (error) {
+    return <div className="box-score social-links">Error fetching social links: {error}</div>;
+  }
+
   return (
     <div className="box-score social-links">
       <h5>Redes Sociales</h5>
-      <div>
-        {links.instagram && (
-          <a href={links.instagram} target="_blank" rel="noopener noreferrer">
-            <i className="fa-brands fa-instagram"></i>
-          </a>
-        )}
-        {links.twitter && (
-          <a href={links.twitter} target="_blank" rel="noopener noreferrer">
-            <i className="fa-brands fa-x-twitter"></i>
-          </a>
-        )}
-        {links.facebook && (
-          <a href={links.facebook} target="_blank" rel="noopener noreferrer">
-            <i className="fa-brands fa-facebook"></i>
-          </a>
-        )}
-        {/* Puedes agregar más redes sociales según sea necesario */}
-      </div>
+      {links && Object.keys(links).length > 0 ? (
+        <div>
+          {links.instagram && (
+            <a href={links.instagram} target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+          )}
+          {links.twitter && (
+            <a href={links.twitter} target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-twitter"></i>
+            </a>
+          )}
+          {links.facebook && (
+            <a href={links.facebook} target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-facebook"></i>
+            </a>
+          )}
+          {/* Puedes agregar más redes sociales según sea necesario */}
+        </div>
+      ) : (
+        <p>No tienes redes sociales asociadas.</p>
+      )}
     </div>
   );
 };

@@ -33,15 +33,25 @@
 .comment-box-container,
 .social-box-container,
 .rating-box-container {
-    width: 490px; 
-    height: 200px; 
-    background-color: #d9d9d9;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    width: 490px; /* Ancho fijo de 490px */
+    height: 200px; /* Alto fijo de 200px */
+    display: flex; /* Usa flexbox para centrar el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    padding: 20px; /* Espacio alrededor del contenido */
+    background-color: #d9d9d9; /* Color de fondo gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; /* Sombra sutil */
+    margin: 10px auto; /* Centra el contenedor en el contenedor padre y añade margen superior e inferior */
 }
+
+
+.description-form p {
+    text-align: justify; /* Justifica el texto dentro del párrafo */
+    margin: 0; /* Elimina el margen por defecto */
+    width: 100%; /* Asegura que el párrafo use todo el ancho disponible */
+    max-width: 900px; /* Ajusta el ancho máximo del párrafo */
+  }
 
 .profile-card {
     width: 500px;
