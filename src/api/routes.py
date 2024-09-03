@@ -419,3 +419,22 @@ def get_comments_count_for_my_itineraries():
         return jsonify({'msg': 'ok', 'comments_count': comments_count}), 200
     except Exception as e:
         return jsonify({'msg': 'Server error', 'error': str(e)}), 500
+    
+    
+@api.route('/users/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_user_profile(id):
+    # Aquí deberías tener el código para procesar la solicitud PUT
+    data = request.json
+    user = User.query.get(id)
+    if not user:
+        return jsonify({'msg': 'User not found'}), 404
+
+    # Actualiza el perfil del usuario con los datos recibidos
+    user.description = data.get('description', user.description)
+    user.social_media = data.get('social_media', user.social_media)
+    user.profile_image = data.get('image_url', user.profile_image)
+    db.session.commit()
+
+    return jsonify({'msg': 'Profile updated successfully'}), 200
+
