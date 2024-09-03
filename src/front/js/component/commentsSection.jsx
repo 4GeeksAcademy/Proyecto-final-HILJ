@@ -9,7 +9,7 @@ const CommentsSection = () => {
       <section className="comments">
         <div className="header d-flex  my-5">
           <h4>Comentarios de usuarios</h4>
-          <button type="button" class="btn btn-outline-primary">
+          <button type="button" className="btn btn-outline-primary">
             Comentar Ruta
           </button>
         </div>

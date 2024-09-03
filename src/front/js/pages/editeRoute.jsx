@@ -11,16 +11,38 @@ import "../../styles/createRoute.css";
 import EditFile from "../component/editRouteComp/editFile.jsx";
 
 
-export const EditRoute = (props) => {
+export const EditRoute = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const params = useParams();
   const id = params.theid
-  
-  // Obtenemos el ID de la ruta a editar desde los parámetros de la URL
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
-    console.log(id)
+    const getCurrentUserId = async () => {
+      try {
+        const resp = await fetch(process.env.BACKEND_URL + "/api/userId", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify(localStorage.getItem("token")),
+        });
+        const data = await resp.json();
+        setCurrentUserId(data.userId);
+        return true;
+      } catch (error) {
+        return;
+      }
+    };
+    if (localStorage.getItem("token")) {
+      getCurrentUserId();
+    }
+    else navigate('/')
+  }, [])
+  
+  useEffect(() => {
     if (id) {
       const loadRouteData = async () => {
         try {
@@ -36,17 +58,15 @@ export const EditRoute = (props) => {
             }
           );
           const data = await resp.json();
-          console.log('aaaaaaaaaaaaaaaaaa', data)
-          console.log("Route ID:", id);
           if (!resp.ok) {
             throw new Error(data.msg || "Error loading itinerary data");
           }
           actions.setNewItineraryData(data);
+          if(data.itinerary.author_id != currentUserId) navigate('/')
         } catch (error) {
           console.error("Error loading itinerary:", error.message);
         }
       };
-
       loadRouteData();
     } else {
       console.error("Route ID is undefined.");
@@ -54,7 +74,8 @@ export const EditRoute = (props) => {
   }, [id]);
 
   const handleDiscard = () => {
-    navigate("/user");
+    // navigate(`/user/${currentUserId}`);
+    navigate(`/user/`);
     window.location.reload();
   };
 

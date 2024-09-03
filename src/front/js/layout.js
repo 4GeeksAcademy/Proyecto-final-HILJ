@@ -7,7 +7,7 @@ import { Home } from "./pages/home.jsx";
 import { Search } from "./pages/search.jsx";
 import { SingleRoute } from "./pages/singleRoute.jsx";
 import { CreateRoute } from "./pages/createRoute.jsx";
-import { EditRoute } from "./pages/editeRoute2.jsx";
+import { EditRoute } from "./pages/editeRoute.jsx";
 import { Profile } from "./pages/profile.jsx";
 import ResetPassword from "./pages/resetPassword.jsx";
 import injectContext from "./store/appContext";

@@ -103,6 +103,7 @@ class Itinerary(db.Model):
             'itinerary': self.itinerary,
             'creation_date': self.creation_date,
             'author': self.author.username,
+            'author_id': self.author.id,
             'comments': [comment.serialize() for comment in self.comments],
             'tags': [tag.serialize() for tag in self.tags]
         }

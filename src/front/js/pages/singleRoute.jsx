@@ -1,5 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ItineraryCarrusel } from "../component/itineraryCarrusel.jsx";
 import RouteDescription from "../component/routeDescription.jsx";
@@ -25,17 +31,41 @@ const center = {
 const libraries = ["places"];
 
 export const SingleRoute = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const params = useParams();
-  
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const navigate = useNavigate();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDayPoints, setCurrentDayPoints] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [mapInstance, setMapInstance] = useState(null);
-
-
   const isMounted = useRef(true);
+
+  // Check current user id
+  useEffect(() => {
+    const getCurrentUserId = async () => {
+      try {
+        const resp = await fetch(process.env.BACKEND_URL + "/api/userId", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify(localStorage.getItem("token")),
+        });
+        const data = await resp.json();
+        setCurrentUserId(data.userId);
+        return true;
+      } catch (error) {
+        return;
+      }
+    };
+    if (localStorage.getItem("token")) {
+      getCurrentUserId();
+    }
+  }, []);
 
   useEffect(() => {
     isMounted.current = true;
@@ -44,8 +74,9 @@ export const SingleRoute = () => {
     };
   }, []);
 
-
-  const getItinerary = store.itineraries.find(itinerary => itinerary.id === parseInt(params.theid));
+  const getItinerary = store.itineraries.find(
+    (itinerary) => itinerary.id === parseInt(params.theid)
+  );
 
   if (!getItinerary) {
     return <div>Itinerario no encontrado</div>;
@@ -84,9 +115,9 @@ export const SingleRoute = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setDirectionsResponse(null); 
-    setCurrentDayPoints([]); 
-    setMapInstance(null); 
+    setDirectionsResponse(null);
+    setCurrentDayPoints([]);
+    setMapInstance(null);
   };
 
   const handleMapLoad = useCallback((map) => {
@@ -105,10 +136,19 @@ export const SingleRoute = () => {
         <hr className="my-5  w-75 mx-auto" />
         <RouteDescription data={itinerary} />
         <hr className="my-5 w-75 mx-auto " />
-        <FollowCard/>
+        <FollowCard username={itinerary.author} />
         <hr className="mt-5  w-75 mx-auto d-block d-md-none" />
       </div>
       <div className="right-col col-12 col-md-5 my-5 mx-5">
+        <div className="text-end mb-3">
+          {currentUserId === itinerary.author_id ? (
+            <Link to={`/route/edit/${itinerary.id}`}>
+              <button className="btn btn-success">Editar itinerario</button>
+            </Link>
+          ) : (
+            ""
+          )}
+        </div>
         <div className="d-flex flex-column align-items-center">
           {itineraryKeys.map((key, index) => (
             <div className="mx-auto w-100" key={index}>
@@ -130,7 +170,7 @@ export const SingleRoute = () => {
           ))}
         </div>
         <hr className="mt-5 ms-3" />
-        <CommentsSection/>
+        <CommentsSection />
       </div>
 
       {isModalOpen && (

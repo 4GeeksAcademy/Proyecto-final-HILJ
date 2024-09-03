@@ -91,6 +91,7 @@ def reset_password(token):
         return jsonify({'msg': 'Invalid token'}), 400
     except Exception as e:
         return jsonify({'msg': 'Error resetting password', 'error': str(e)}), 500
+    
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
     response_body = {
@@ -116,6 +117,14 @@ def get_user_by_id(id):
     return jsonify({'msg': 'ok',
                     'user': user.serialize()}), 200
 
+@api.route('/userId', methods=['POST'])
+def get_current_userId():
+    data = request.json
+
+    decoded_token = decode_token(data)
+    user_id = decoded_token['sub']
+
+    return jsonify({ 'userId': user_id})
 
 @api.route('/itineraries', methods=['GET'])
 def get_itineraries():

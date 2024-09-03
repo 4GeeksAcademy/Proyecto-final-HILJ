@@ -50,7 +50,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  ...store,
 				  newItineraryData: data.itinerary,
 				});
-				console.log(store.newItineraryData)
 			  },
 			deleteDay: (key) => {
 				const store = getStore();

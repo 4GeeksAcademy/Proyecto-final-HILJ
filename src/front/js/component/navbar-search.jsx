@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/navbar.css";
 import Searchbar from "./searchbar.jsx";
@@ -9,6 +9,10 @@ import DropdownButton from "./buttons/dropdownButton.jsx";
 export const Navbarsearch = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    actions.validateToken(localStorage.getItem('token'));
+  }, []);
 
   return (
     <nav className="navbar navbar-light bg-light navbar-shadow py-4">
