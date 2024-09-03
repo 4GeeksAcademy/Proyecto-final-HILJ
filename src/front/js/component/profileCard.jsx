@@ -67,7 +67,7 @@ const ProfileCard = ({ username, profileimage }) => {
         body: JSON.stringify({
           description: description,
           social_media: socialLinks,
-          image_url: imageUrl, // Usar la URL de la imagen subida o la imagen actual
+          image_url: imageUrl, 
         }),
       });
 
