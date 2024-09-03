@@ -5,13 +5,12 @@ import "../../styles/profileCard.css";
 import Avvvatars from "avvvatars-react";
 import { useParams } from "react-router-dom";
 
-const ProfileCard = () => {
+const ProfileCard = ({username, profileimage}) => {
   const {} = useParams(); 
   const [showModal, setShowModal] = useState(false); 
-  const [profileImage, setProfileImage] = useState(""); 
+  const [profileimg, setProfileImage] = useState(""); 
   const [description, setDescription] = useState(""); 
   const [socialLinks, setSocialLinks] = useState({}); 
-
   // Función para manejar el cambio de imagen
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -23,11 +22,40 @@ const ProfileCard = () => {
       reader.readAsDataURL(file);
     }
   };
+  // const handleFile = async (e) => {
+  //   const selectedFile = e.target.files[0];
+  //   if (selectedFile) {
+  //     setFile(selectedFile);
+
+  //     const formData = new FormData();
+  //     formData.append("file", selectedFile);
+  //     formData.append("upload_preset", "dlfq7smx");
+  //     formData.append("api_key", "853636263856715");
+
+  //     try {
+  //       const res = await fetch(
+  //         "https://api.cloudinary.com/v1_1/dlfq7smx/image/upload",
+  //         {
+  //           method: "POST",
+  //           body: formData,
+  //         }
+  //       );
+  //       const data = await res.json();
+  //       if (res.ok) {
+  //         actions.addImg(data.url);
+  //       } else {
+  //         console.error("Error uploading image:", data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error uploading image:", error);
+  //     }
+  //   }
+  // };
 
  
   const handleSave = async () => {
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/api/users/${theid}`, {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/users/${params.theid}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +64,7 @@ const ProfileCard = () => {
         body: JSON.stringify({
           description: description,
           social_media: socialLinks,
-          image_url: profileImage
+          image_url: profileimg
         }),
       });
 
@@ -66,27 +94,27 @@ const ProfileCard = () => {
         ></i>
         <div className="d-grid gap-4">
           <span className="profile-image mx-auto">
-            {profileImage ? (
+            {profileimg ? (
               <img
-                src={profileImage}
+                src={profileimage}
                 alt="User profile"
                 className="profile-img"
               />
             ) : (
-              <Avvvatars value={username} size={300} />
+              <Avvvatars value={"username"} size={200} />
             )}
           </span>
           <span className="username fw-bold mx-auto">
-            @{USER_DATA.username} 
+            @{username} 
           </span>
-          <div className="d-grid gap-2">
+          {/* <div className="d-grid gap-2">
             <span className="followers mx-auto">
-              {USER_DATA.followers} seguidores
+              {'followers'} seguidores
             </span>
             <span className="following mx-auto">
-              {USER_DATA.following} seguidos
+              {'following'} seguidos
             </span>
-          </div>
+          </div> */}
           <span className="follow mx-auto">
             <FollowButton />
           </span>
@@ -116,16 +144,16 @@ const ProfileCard = () => {
             <div className="modal-body">
               <div className="profile-image-upload text-center mb-3">
                 <label htmlFor="profileImageInput">
-                  {profileImage ? (
+                  {profileimg ? (
                     <img
-                      src={profileImage}
+                      src={profileimg}
                       alt="User profile"
                       className="profile-img rounded-circle"
                       style={{ cursor: "pointer", width: "150px", height: "150px" }}
                     />
                   ) : (
                     <Avvvatars
-                      value={USER_DATA.username}
+                      value={username}
                       size={150}
                       style={{ cursor: "pointer" }}
                     />

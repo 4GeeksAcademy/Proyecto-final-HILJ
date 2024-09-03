@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/navbar.css";
 import Searchbar from "./searchbar.jsx";
@@ -9,9 +9,33 @@ import DropdownButton from "./buttons/dropdownButton.jsx";
 export const Navbarsearch = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
     actions.validateToken(localStorage.getItem('token'));
+  }, []);
+
+  useEffect(() => {
+    const getCurrentUserId = async () => {
+      try {
+        const resp = await fetch(process.env.BACKEND_URL + "/api/userId", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify(localStorage.getItem("token")),
+        });
+        const data = await resp.json();
+        setCurrentUserId(data.userId);
+        return true;
+      } catch (error) {
+        return;
+      }
+    };
+    if (localStorage.getItem("token")) {
+      getCurrentUserId();
+    }
   }, []);
 
   return (
@@ -31,6 +55,7 @@ export const Navbarsearch = () => {
             <DropdownButton
               icon={<i className="bi bi-person-circle"></i>}
               buttonName={"Mi perfil"}
+              id = {currentUserId}
             />
           ) : (
             <BlueButton

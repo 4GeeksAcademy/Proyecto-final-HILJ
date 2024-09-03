@@ -108,14 +108,17 @@ def get_users():
                     'users': users}), 200
 
 @api.route('/users/<int:id>', methods=['GET'])
+@jwt_required()
 def get_user_by_id(id):
     user = User.query.get(id)
-    
+
     if user is None:
         return jsonify({'msg': 'User not found'}), 404
 
+    user = user.serialize()
+
     return jsonify({'msg': 'ok',
-                    'user': user.serialize()}), 200
+                    'user': user}), 200
 
 @api.route('/userId', methods=['POST'])
 def get_current_userId():

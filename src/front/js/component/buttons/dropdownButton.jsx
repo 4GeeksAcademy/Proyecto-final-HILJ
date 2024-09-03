@@ -2,7 +2,7 @@ import React from "react";
 import LogoutLink from "../logout.js";
 import { Link } from "react-router-dom";
 
-const DropdownButton = ({ buttonName, icon }) => {
+const DropdownButton = ({ buttonName, icon, id }) => {
   return (
     <div className="dropdown">
       <button
@@ -15,7 +15,7 @@ const DropdownButton = ({ buttonName, icon }) => {
       </button>
       <ul className="dropdown-menu dropdown-menu-light">
         <li>
-          <Link to={'/user'}>
+          <Link to={`/user/${id}`}>
             Mi perfil
           </Link>
         </li>

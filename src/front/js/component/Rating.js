@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Rating = () => {
+const Rating = (data) => {
   const [rating, setRating] = useState(0);
 
   const handleRating = (index) => {
