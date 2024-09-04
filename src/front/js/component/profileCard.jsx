@@ -11,6 +11,7 @@ const ProfileCard = ({ username, profileimage }) => {
   const params = useParams();
   const { store, actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
+  const [userName, setUsername] = useState("")
   const [profileimg, setProfileImage] = useState(profileimage); 
   const [description, setDescription] = useState("");
   const [socialLinks, setSocialLinks] = useState({});
@@ -28,7 +29,11 @@ const ProfileCard = ({ username, profileimage }) => {
 
         if (response.ok) {
           const data = await response.json(); // Obtiene los datos del usuario
-          setUsername(data.username); // Guarda el nombre de usuario en el estado
+          console.log(data)
+          const { user } = data
+
+
+          setUsername(user.username); // Guarda el nombre de usuario en el estado
         } else {
           console.error("Error al obtener los datos del usuario");
         }
@@ -137,11 +142,11 @@ const ProfileCard = ({ username, profileimage }) => {
                 className="profile-img"
               />
             ) : (
-              <Avvvatars value={username} size={200} />
+              <Avvvatars value={userName} size={200} />
             )}
           </span>
           <span 
-          className="username fw-bold mx-auto">@{store.username}</span>
+          className="username fw-bold mx-auto">@{userName}</span>
           
           <span className="follow mx-auto">
             <FollowButton />
