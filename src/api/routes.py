@@ -133,24 +133,20 @@ def protected():
 
 
 #Ruta para modal de seguidores y seguidos
-@api.route('/follows_followers_rel', methods=['POST'])
-@jwt_required()    
-def create_followers_rel():
-    new_follower = Follows_followers_rel(
-        author_id = followed_user_id['author_id'],
+
+@api.route('/followers', methods=['POST'])
+def create_followers():
+    data = request.json
+    required_fields = ['following_user_id', 'followed_user_id']
+    missing_fields = [field for field in required_fields if field not in data or not data[field]]
+    if missing_fields:
+        return jsonify({'msg': f'Missing fields: {", ".join(missing_fields)}'}), 400
+
+    new_followers = Follows_Followers_Rel(
+        following_user_id = data['following_user_id'],
+        followed_user_id = data['followed_user_id']
     )
 
-    db.follows_followers_rel.add(new_follower)
-    db.follows_followers_rel.commit()
-    return jsonify(), 201
-
-@api.route('/follows_followers_rel', methods=['POST'])
-@jwt_required()    
-def create_following_rel():
-    new_following = Follows_followers_rel(
-        author_id = following_user_id['author_id'],
-    )
-
-    db.follows_following_rel.add(new_following)
-    db.follows_following_rel.commit()
-    return jsonify(), 201
+    db.session.add(new_followers)
+    db.session.commit()
+    return jsonify({'msg': 'followers created successfully'}), 201
