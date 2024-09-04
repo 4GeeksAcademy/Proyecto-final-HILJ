@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FollowButton from "../component/buttons/followButton.jsx";
 import "../../styles/profileCard.css";
 import Avvvatars from "avvvatars-react";
@@ -8,11 +8,34 @@ import DeleteAccountLink from "./deleteAccount.js";
 const ProfileCard = ({ username, profileimage }) => {
   const params = useParams();
   const [showModal, setShowModal] = useState(false);
-  const [user, setUserName] = useState(username);
-  const [profileimg, setProfileImage] = useState(profileimage); // Mantener la imagen actual del perfil
+  const [profileimg, setProfileImage] = useState(profileimage); 
   const [description, setDescription] = useState("");
   const [socialLinks, setSocialLinks] = useState({});
   const [file, setFile] = useState(null);
+
+  // Fetch para obtener el nombre de usuario
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/users/${params.theid}`, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`, // Enviar token en el header
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json(); // Obtiene los datos del usuario
+          setUsername(data.username); // Guarda el nombre de usuario en el estado
+        } else {
+          console.error("Error al obtener los datos del usuario");
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos del usuario:", error);
+      }
+    };
+
+    fetchUserData(); // Llama a la función para obtener los datos del usuario
+  }, [params.theid]);
 
   // Función para manejar el cambio de imagen
   const handleImageChange = (e) => {
@@ -56,6 +79,14 @@ const ProfileCard = ({ username, profileimage }) => {
         return;
       }
     }
+  
+    // Formatear los enlaces sociales
+    const formattedSocialLinks = {};
+    for (const [key, value] of Object.entries(socialLinks)) {
+      if (value) {
+        formattedSocialLinks[key] = `https://www.${key}.com/${value.replace('@', '')}`;
+      }
+    }
 
     // Actualizar el perfil del usuario en el backend
     try {
@@ -67,10 +98,9 @@ const ProfileCard = ({ username, profileimage }) => {
         },
         body: JSON.stringify({
           description: description,
-          social_media: socialLinks,
+          social_media: formattedSocialLinks,
           profile_image: imageUrl, 
         }),
-        
       });
 
       const result = await response.json();
@@ -107,10 +137,12 @@ const ProfileCard = ({ username, profileimage }) => {
                 className="profile-img"
               />
             ) : (
-              <Avvvatars value={handleImageChange} size={200} />
+              <Avvvatars value={username} size={200} />
             )}
           </span>
-          <span className="username fw-bold mx-auto">@{username}</span>
+          <span 
+          className="username fw-bold mx-auto">@{username}</span>
+          
           <span className="follow mx-auto">
             <FollowButton />
           </span>
@@ -149,7 +181,7 @@ const ProfileCard = ({ username, profileimage }) => {
                     />
                   ) : (
                     <Avvvatars
-                      value= {username}
+                      value={username}
                       size={150}
                       style={{ cursor: "pointer" }}
                     />
