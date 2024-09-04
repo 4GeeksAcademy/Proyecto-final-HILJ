@@ -7,12 +7,12 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import DeleteAccountLink from "./deleteAccount.js";
 
-const ProfileCard = ({ username, profileimage }) => {
+const ProfileCard = ({ username }) => {
   const params = useParams();
   const { store, actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
   const [userName, setUsername] = useState("")
-  const [profileimg, setProfileImage] = useState(profileimage); 
+  const [profileimg, setProfileImage] = useState(""); 
   const [description, setDescription] = useState("");
   const [socialLinks, setSocialLinks] = useState({});
   const [file, setFile] = useState(null);
@@ -45,6 +45,8 @@ const ProfileCard = ({ username, profileimage }) => {
     fetchUserData(); // Llama a la función para obtener los datos del usuario
   }, [params.theid]);
 
+  
+
   // Función para manejar el cambio de imagen
   const handleImageChange = async (e) => {
     const selectedFile = e.target.files[0];
@@ -65,6 +67,7 @@ const ProfileCard = ({ username, profileimage }) => {
           }
         );
         const data = await res.json();
+        
         if (res.ok) {
           setProfileImage(data.secure_url); // Actualiza la URL de la imagen de perfil
         } else {
@@ -122,6 +125,8 @@ const ProfileCard = ({ username, profileimage }) => {
       alert("Error al actualizar el perfil");
     }
   };
+
+  console.log(profileimg)
 
   return (
     <>

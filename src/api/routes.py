@@ -450,3 +450,16 @@ def update_user_profile(id):
 
     return jsonify({'msg': 'Profile updated successfully'}), 200
 
+
+@api.route('/itineraries/author/<int:author_id>', methods=['GET'])
+def get_itineraries_by_author(author_id):
+    try:
+        itineraries = Itinerary.query.filter_by(author_id=author_id).all()
+        if not itineraries:
+            return jsonify({'msg': 'No itineraries found for this author'}), 404
+        
+        itineraries = [itinerary.serialize() for itinerary in itineraries]
+        return jsonify({'msg': 'ok', 'itineraries': itineraries}), 200
+    except Exception as e:
+        return jsonify({'msg': 'Server error', 'error': str(e)}), 500
+
