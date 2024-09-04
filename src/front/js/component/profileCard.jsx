@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { USER_DATA } from "./data/userData";
 import FollowButton from "../component/buttons/followButton.jsx";
 import "../../styles/profileCard.css";
 import Avvvatars from "avvvatars-react";
 import { useParams } from "react-router-dom";
+import DeleteAccountLink from "./deleteAccount.js";
 
 const ProfileCard = ({ username, profileimage }) => {
   const params = useParams();
@@ -61,20 +61,22 @@ const ProfileCard = ({ username, profileimage }) => {
       const response = await fetch(`${process.env.BACKEND_URL}/api/users/${params.theid}`, {
         method: "PUT",
         headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
         },
         body: JSON.stringify({
           description: description,
           social_media: socialLinks,
-          image_url: imageUrl, 
+          profile_image: imageUrl, 
         }),
+        
       });
 
       const result = await response.json();
       if (response.ok) {
         alert("Perfil actualizado con éxito");
         setShowModal(false); // Cerrar el modal si la actualización es exitosa
+        window.location.reload(); // Refresca la página para reflejar los cambios
       } else {
         alert(`Error: ${result.msg || "Error desconocido"}`);
         console.error("Error en la respuesta:", result);
@@ -197,6 +199,7 @@ const ProfileCard = ({ username, profileimage }) => {
                   onChange={(e) => setSocialLinks({ ...socialLinks, instagram: e.target.value })}
                 />
               </div>
+              
             </div>
             <div className="modal-footer">
               <button
@@ -213,6 +216,7 @@ const ProfileCard = ({ username, profileimage }) => {
               >
                 Guardar
               </button>
+              
             </div>
           </div>
         </div>
