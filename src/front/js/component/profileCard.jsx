@@ -8,6 +8,7 @@ import DeleteAccountLink from "./deleteAccount.js";
 const ProfileCard = ({ username, profileimage }) => {
   const params = useParams();
   const [showModal, setShowModal] = useState(false);
+  const [user, setUserName] = useState(username);
   const [profileimg, setProfileImage] = useState(profileimage); // Mantener la imagen actual del perfil
   const [description, setDescription] = useState("");
   const [socialLinks, setSocialLinks] = useState({});
@@ -106,7 +107,7 @@ const ProfileCard = ({ username, profileimage }) => {
                 className="profile-img"
               />
             ) : (
-              <Avvvatars value={username} size={200} />
+              <Avvvatars value={handleImageChange} size={200} />
             )}
           </span>
           <span className="username fw-bold mx-auto">@{username}</span>
@@ -148,7 +149,7 @@ const ProfileCard = ({ username, profileimage }) => {
                     />
                   ) : (
                     <Avvvatars
-                      value={username}
+                      value= {username}
                       size={150}
                       style={{ cursor: "pointer" }}
                     />

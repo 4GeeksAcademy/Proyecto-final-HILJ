@@ -358,7 +358,7 @@ def verify_password():
     return jsonify({'msg': 'Contraseña verificada'}), 200
 
 @api.route('/profile', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_profile():
    
     current_user_id = get_jwt_identity()
