@@ -162,7 +162,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errorMsg = data.msg
 						throw new Error(errorMsg);
 					}
-					setStore({token: data.access_token});
+					setStore({token: data.access_token, user: data.user});
 					localStorage.setItem('token', data.access_token)
 					return { success: true }
 				} catch (error) {
@@ -186,7 +186,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errorMsg = data.msg
 						throw  new Error(errorMsg);
 					}
-					setStore({token: data.access_token});
+					setStore({token: data.access_token, user: data.user});
 					localStorage.setItem('token', data.access_token)
 					return { success: true }
 				} catch (error) {

@@ -9,11 +9,24 @@ import { useLocation } from "react-router-dom";
 export const Search = () => {
   const { store, actions } = useContext(Context);
   const location = useLocation();
-  const [itineraries, setItineraries] = useState(location.state?.itineraries || []);
+  const [itineraries, setItineraries] = useState(
+    location.state?.itineraries || JSON.parse(localStorage.getItem('itineraries')) || []
+  );
 
   useEffect(() => {
-    setItineraries(store.itineraries);
+    if (store.itineraries && store.itineraries.length > 0) {
+      setItineraries(store.itineraries);
+      localStorage.setItem('itineraries', JSON.stringify(store.itineraries));
+    } else {
+      const storedItineraries = JSON.parse(localStorage.getItem('itineraries'));
+      store.itineraries =  JSON.parse(localStorage.getItem('itineraries'))
+      if (storedItineraries) {
+        setItineraries(storedItineraries);
+      }
+    }
   }, [store.itineraries]);
+
+
 
   return (
     <main>

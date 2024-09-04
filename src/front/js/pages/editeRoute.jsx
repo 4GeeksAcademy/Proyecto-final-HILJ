@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext.js";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import UploadFile from "../component/uploadFile.jsx";
-import Accordion from "../component/accordion.jsx";
 import { AddDay } from "../component/addDay.jsx";
-import ActivityModal from "../component/activityModal.jsx";
 import "../../styles/createRoute.css";
 import EditFile from "../component/editRouteComp/editFile.jsx";
 
@@ -16,31 +12,10 @@ export const EditRoute = () => {
   const navigate = useNavigate();
   const params = useParams();
   const id = params.theid
-  const [currentUserId, setCurrentUserId] = useState(null);
+  
 
-  useEffect(() => {
-    const getCurrentUserId = async () => {
-      try {
-        const resp = await fetch(process.env.BACKEND_URL + "/api/userId", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-          },
-          body: JSON.stringify(localStorage.getItem("token")),
-        });
-        const data = await resp.json();
-        setCurrentUserId(data.userId);
-        return true;
-      } catch (error) {
-        return;
-      }
-    };
-    if (localStorage.getItem("token")) {
-      getCurrentUserId();
-    }
-    else navigate('/')
-  }, [])
+  // Obtenemos el ID de la ruta a editar desde los parámetros de la URL
+
   
   useEffect(() => {
     if (id) {
@@ -62,7 +37,8 @@ export const EditRoute = () => {
             throw new Error(data.msg || "Error loading itinerary data");
           }
           actions.setNewItineraryData(data);
-          if(data.itinerary.author_id != currentUserId) navigate('/')
+          console.log(data.itinerary?.author_id, store.user?.id)
+          if(data.itinerary?.author_id != store.user?.id) navigate('/')
         } catch (error) {
           console.error("Error loading itinerary:", error.message);
         }
@@ -74,8 +50,7 @@ export const EditRoute = () => {
   }, [id]);
 
   const handleDiscard = () => {
-    // navigate(`/user/${currentUserId}`);
-    navigate(`/user/`);
+    navigate("/user");
     window.location.reload();
   };
 

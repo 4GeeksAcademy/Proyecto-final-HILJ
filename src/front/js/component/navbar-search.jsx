@@ -11,9 +11,9 @@ export const Navbarsearch = () => {
   const navigate = useNavigate();
   const [currentUserId, setCurrentUserId] = useState(null);
 
-  useEffect(() => {
-    actions.validateToken(localStorage.getItem('token'));
-  }, []);
+  // useEffect(() => {
+  //   actions.validateToken(localStorage.getItem('token'));
+  // }, []);
 
   useEffect(() => {
     const getCurrentUserId = async () => {

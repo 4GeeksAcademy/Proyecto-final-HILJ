@@ -43,6 +43,9 @@ export const SingleRoute = () => {
   const [mapInstance, setMapInstance] = useState(null);
   const isMounted = useRef(true);
 
+  useEffect(() => {
+    if(!store.token || !localStorage.getItem('token')) navigate('/')
+  }, [])
   // Check current user id
   useEffect(() => {
     const getCurrentUserId = async () => {
@@ -76,7 +79,14 @@ export const SingleRoute = () => {
 
   const getItinerary = store.itineraries.find(
     (itinerary) => itinerary.id === parseInt(params.theid)
-  );
+  ) || JSON.parse(localStorage.getItem('currentItinerary'));
+
+  // Guardar el itinerario en localStorage cuando se obtenga
+  useEffect(() => {
+    if (getItinerary) {
+      localStorage.setItem('currentItinerary', JSON.stringify(getItinerary));
+    }
+  }, [getItinerary]);
 
   if (!getItinerary) {
     return <div>Itinerario no encontrado</div>;

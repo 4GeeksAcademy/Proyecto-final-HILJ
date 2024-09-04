@@ -253,7 +253,7 @@ def register():
     # Crear token de acceso JWT
     access_token = create_access_token(identity=new_user.id)
 
-    return jsonify({'msg': 'User registered successfully', 'access_token': access_token}), 201
+    return jsonify({"access_token": access_token, "user": new_user.serialize()}), 201
 
 @api.route('/login', methods=['POST'])
 def login():
@@ -280,7 +280,7 @@ def login():
     
     # Crear el token de acceso JWT si la autenticación es exitosa
     access_token = create_access_token(identity=user.id)
-    return jsonify(access_token=access_token), 200
+    return jsonify({"access_token": access_token, "user": user.serialize()}), 200
 
 @api.route('/validate-token', methods=['GET'])
 @jwt_required()
