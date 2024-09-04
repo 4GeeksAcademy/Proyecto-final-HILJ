@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, Blueprint
-from api.models import db, User, Itinerary
+from api.models import db, User, Itinerary, Follows_Followers_Rel
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import bcrypt
 from flask_cors import CORS
@@ -133,29 +133,24 @@ def protected():
 
 
 #Ruta para modal de seguidores y seguidos
-@api.route('/followers', methods=['GET'])
-def get_followers():
-    user = User.query.get()
-    followers = user.followers.all()
-    result = []
-    for follower in followers:
-        result.append({
-            'id': follower.id,
-            'username': follower.username,
-            'profile_image': follower.profile_image
-        })
-    return jsonify(result)
+@api.route('/follows_followers_rel', methods=['POST'])
+@jwt_required()    
+def create_followers_rel():
+    new_follower = Follows_followers_rel(
+        author_id = followed_user_id['author_id'],
+    )
 
+    db.follows_followers_rel.add(new_follower)
+    db.follows_followers_rel.commit()
+    return jsonify(), 201
 
-@api.route('/following', methods=['GET'])
-def get_following():
-    user = User.query.get()
-    following = user.followed.all()
-    result = []
-    for followed in following:
-        result.append({
-            'id': followed.id,
-            'username': followed.username,
-            'profile_image': followed.profile_image
-        })
-    return jsonify(result)
+@api.route('/follows_followers_rel', methods=['POST'])
+@jwt_required()    
+def create_following_rel():
+    new_following = Follows_followers_rel(
+        author_id = following_user_id['author_id'],
+    )
+
+    db.follows_following_rel.add(new_following)
+    db.follows_following_rel.commit()
+    return jsonify(), 201

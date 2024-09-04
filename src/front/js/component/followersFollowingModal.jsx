@@ -20,7 +20,7 @@ export const FollowersFollowingModal = () => {
 
     const followers = [
         { name: 'Pepe Pérez', username: 'pepepe', imageUrl: 'https://cdn.pixabay.com/photo/2024/08/22/22/03/backpacker-8990243_1280.png'},
-        { name: 'Lola López', username: 'lolalo', imageUrl: 'https://media.istockphoto.com/id/1192648836/es/foto/joven-mujer-feliz-en-una-cabina-de-avi%C3%B3n.jpg?s=1024x1024&w=is&k=20&c=1ngB5TbUh_LebZrHA9J9CaHX_nesH47G_QX5zm18008='},
+        { name: 'Lola Luna', username: 'lolalu', imageUrl: 'https://media.istockphoto.com/id/1192648836/es/foto/joven-mujer-feliz-en-una-cabina-de-avi%C3%B3n.jpg?s=1024x1024&w=is&k=20&c=1ngB5TbUh_LebZrHA9J9CaHX_nesH47G_QX5zm18008='},
         { name: 'Pablo Suarez', username: 'psuarez', imageUrl: 'https://cdn.pixabay.com/photo/2018/05/04/12/21/man-3373868_1280.jpg'},
         { name: 'Luis Llanos', username: 'lllanos', imageUrl: 'https://cdn.pixabay.com/photo/2016/08/20/08/46/hiker-1607078_1280.jpg'},
     ];

@@ -61,7 +61,9 @@ class User(db.Model):
             "description": self.description,
             "social_media": self.social_media,
             "creation_date": self.creation_date,
-            "itinerary": [itinerary.serialize() for itinerary in self.itineraries]
+            "itinerary": [itinerary.serialize() for itinerary in self.itineraries],
+            "followers": [follower.serialize() for follower in self.followers],
+            "following": [follow.serialize() for follow in self.following],
             # do not serialize the password, its a security breach
         }
  
