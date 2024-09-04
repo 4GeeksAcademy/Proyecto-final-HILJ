@@ -46,7 +46,7 @@ const DeleteAccountLink = () => {
       <p>
         <a
           href="#deleteAccount"
-          className="link-white link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+          className="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           data-bs-toggle="modal"
           data-bs-target="#deleteAccount"
         >

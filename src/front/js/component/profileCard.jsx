@@ -3,10 +3,13 @@ import FollowButton from "../component/buttons/followButton.jsx";
 import "../../styles/profileCard.css";
 import Avvvatars from "avvvatars-react";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../store/appContext";
 import DeleteAccountLink from "./deleteAccount.js";
 
 const ProfileCard = ({ username, profileimage }) => {
   const params = useParams();
+  const { store, actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
   const [profileimg, setProfileImage] = useState(profileimage); 
   const [description, setDescription] = useState("");
@@ -38,46 +41,43 @@ const ProfileCard = ({ username, profileimage }) => {
   }, [params.theid]);
 
   // Función para manejar el cambio de imagen
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile); // Guardar el archivo seleccionado para subirlo
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result); // Mostrar la imagen seleccionada en la vista previa
-      };
-      reader.readAsDataURL(selectedFile);
+
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("upload_preset", "dlfq7smx");
+      formData.append("api_key", "853636263856715");
+
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dlfq7smx/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setProfileImage(data.secure_url); // Actualiza la URL de la imagen de perfil
+        } else {
+          console.error("Error uploading image:", data);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
     }
   };
 
-  // Función para subir la imagen a Cloudinary y actualizar el perfil
+  // Función para guardar cambios
   const handleSave = async () => {
     let imageUrl = profileimg; // Mantener la imagen actual si no se selecciona una nueva
 
     if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "dlfq7smx"); // Reemplaza con tu upload preset de Cloudinary
-      formData.append("api_key", "853636263856715"); // Reemplaza con tu API key de Cloudinary
-
-      try {
-        const res = await fetch("https://api.cloudinary.com/v1_1/dlfq7smx/image/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        if (res.ok) {
-          imageUrl = data.secure_url; // Guardar la URL segura de la imagen subida
-        } else {
-          console.error("Error subiendo la imagen:", data);
-          alert("Error al subir la imagen");
-          return;
-        }
-      } catch (error) {
-        console.error("Error subiendo la imagen:", error);
-        alert("Error al subir la imagen");
-        return;
-      }
+      // Ya manejamos la carga de imágenes en `handleImageChange`
+      imageUrl = profileimg;
     }
   
     // Formatear los enlaces sociales
@@ -141,7 +141,7 @@ const ProfileCard = ({ username, profileimage }) => {
             )}
           </span>
           <span 
-          className="username fw-bold mx-auto">@{username}</span>
+          className="username fw-bold mx-auto">@{store.username}</span>
           
           <span className="follow mx-auto">
             <FollowButton />
@@ -232,9 +232,9 @@ const ProfileCard = ({ username, profileimage }) => {
                   onChange={(e) => setSocialLinks({ ...socialLinks, instagram: e.target.value })}
                 />
               </div>
-              
             </div>
             <div className="modal-footer">
+             
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -249,7 +249,6 @@ const ProfileCard = ({ username, profileimage }) => {
               >
                 Guardar
               </button>
-              
             </div>
           </div>
         </div>
